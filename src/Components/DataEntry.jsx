@@ -16,6 +16,7 @@ class DataEntry extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
 
     this.state = {//TODO put back to normal
+      firstRun: true,
       options: ['changePeople', 'changeTables'],
       totalPlayers: 42,
       // totalPlayers: 10,
@@ -162,6 +163,7 @@ class DataEntry extends Component {
     // this.handleClearForm(e);
     this.props.handleTablesReady(this.state.tables);
     this.props.handleResultReady(result);
+    this.state.firstRun = false;
   }
 }
 
@@ -184,7 +186,7 @@ class DataEntry extends Component {
         <Tables
           tables={tables}
           handleTablesChange={this.handleTablesChange}/>
-        <button type='submit' className='button' onClick={this.handleFormSubmit}>Done</button>
+        <button type='submit' className='button' onClick={this.handleFormSubmit}>{this.state.firstRun ? 'Run': 'Run Again'}</button>
       </div>
     );
   }
