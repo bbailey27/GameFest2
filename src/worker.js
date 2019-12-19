@@ -67,7 +67,7 @@ function runRandomXTimes(numRuns, numRounds) {
   let bestRun = {
     playerList: [],
     maxPlayedWithCount: 100,
-    averagePlayedWithCount: 100,
+    averageMaxPlayedWithCount: 100,
     minUniqueTablesVisited: 0
   };
   for (var i = 0; i < numRuns; i++) {
@@ -75,7 +75,7 @@ function runRandomXTimes(numRuns, numRounds) {
     resetRunData();
     let resultPlayerList = [];
     let maxPlayedWithCount = 100;
-    let averagePlayedWithCount = 100;
+    let averageMaxPlayedWithCount = 100;
     let minUniqueTablesVisited = 0;
 
     resultPlayerList = chooseRandomly(numRounds);//returns a cloned version of the global playerList
@@ -88,32 +88,31 @@ function runRandomXTimes(numRuns, numRounds) {
     maxPlayedWithCount = Math.max(...resultPlayerList.map(
       (player) => Math.max(...player.playedWith)
     ));
-    // average times someone played with someone else
-    // calculated by finding the average playedWith count for each player then taking the average of those values
-    // TODO this isn't a helpful number - make this average maxPlayedWithCount, or average after removing 0s
-    averagePlayedWithCount = average(resultPlayerList.map(
-      (player) => average(player.playedWith))
-    );
+    // average of max times everyone played with a specific person
+    // calculated by finding the maxPlayedWithCount for each player and then taking the average of those values
+    averageMaxPlayedWithCount = average(resultPlayerList.map(
+      (player) => Math.max(...player.playedWith)
+    ));
 
 
 
     // Replace result if better
     if (options.changeTables) {
       if (maxPlayedWithCount <= bestRun.maxPlayedWithCount
-        && averagePlayedWithCount <= bestRun.averagePlayedWithCount
+        && averageMaxPlayedWithCount <= bestRun.averageMaxPlayedWithCount
         && minUniqueTablesVisited > bestRun.minUniqueTablesVisited) {
           bestRun = {
             playerList: resultPlayerList,
             maxPlayedWithCount: maxPlayedWithCount,
-            averagePlayedWithCount: averagePlayedWithCount,
+            averageMaxPlayedWithCount: averageMaxPlayedWithCount,
             minUniqueTablesVisited: minUniqueTablesVisited
           }
       }
-    } else if (maxPlayedWithCount <= bestRun.maxPlayedWithCount && averagePlayedWithCount <= bestRun.averagePlayedWithCount) {
+    } else if (maxPlayedWithCount <= bestRun.maxPlayedWithCount && averageMaxPlayedWithCount <= bestRun.averageMaxPlayedWithCount) {
       bestRun = {
         playerList: resultPlayerList,
         maxPlayedWithCount: maxPlayedWithCount,
-        averagePlayedWithCount: averagePlayedWithCount,
+        averageMaxPlayedWithCount: averageMaxPlayedWithCount,
         minUniqueTablesVisited: minUniqueTablesVisited
       }
     }

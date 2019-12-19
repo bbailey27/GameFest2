@@ -13,7 +13,7 @@ class App extends Component {
       result: {
         playerList: [],
         maxPlayedWithCount: 0,
-        averagePlayedWithCount: 0,
+        averageMaxPlayedWithCount: 0,
         minUniqueTablesVisited: 0
       }
     }

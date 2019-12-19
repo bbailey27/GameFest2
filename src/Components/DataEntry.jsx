@@ -163,7 +163,7 @@ class DataEntry extends Component {
     // this.handleClearForm(e);
     this.props.handleTablesReady(this.state.tables);
     this.props.handleResultReady(result);
-    this.state.firstRun = false;
+    this.setState({firstRun: false});
   }
 }
 

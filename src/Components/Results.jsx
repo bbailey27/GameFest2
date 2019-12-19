@@ -33,8 +33,8 @@ class Results extends Component {
     return (
       <div>
         <h2>Results</h2>
-        <p>Max Times Played With Someone: {result.maxPlayedWithCount}</p>
-        <p>Average Times Played With Someone: {Math.round(result.averagePlayedWithCount * 100) / 100}</p>
+        <p>Max of Everyone's Max Times Played With Someone: {result.maxPlayedWithCount}</p>
+        <p>Average of Everyone's Max Times Played With Someone: {Math.round(result.averageMaxPlayedWithCount * 100) / 100}</p>
         <p>Minimum Number of Unique Tables Visited: {result.minUniqueTablesVisited}</p>
         <ol>
           {result.playerList.length > 0 &&
