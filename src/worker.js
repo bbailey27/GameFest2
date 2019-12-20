@@ -94,34 +94,31 @@ function runRandomXTimes(numRuns, numRounds) {
       (player) => Math.max(...player.playedWith)
     ));
 
-
-
     // Replace result if better
-    if (options.changeTables) {
-      if (maxPlayedWithCount <= bestRun.maxPlayedWithCount
-        && averageMaxPlayedWithCount <= bestRun.averageMaxPlayedWithCount
-        && minUniqueTablesVisited > bestRun.minUniqueTablesVisited) {
-          bestRun = {
-            playerList: resultPlayerList,
-            maxPlayedWithCount: maxPlayedWithCount,
-            averageMaxPlayedWithCount: averageMaxPlayedWithCount,
-            minUniqueTablesVisited: minUniqueTablesVisited
-          }
-      }
-    } else if (maxPlayedWithCount <= bestRun.maxPlayedWithCount && averageMaxPlayedWithCount <= bestRun.averageMaxPlayedWithCount) {
-      bestRun = {
-        playerList: resultPlayerList,
-        maxPlayedWithCount: maxPlayedWithCount,
-        averageMaxPlayedWithCount: averageMaxPlayedWithCount,
-        minUniqueTablesVisited: minUniqueTablesVisited
-      }
-    }
+    bestRun = compareResults(resultPlayerList, minUniqueTablesVisited, maxPlayedWithCount, averageMaxPlayedWithCount, bestRun);
   }
   return bestRun;
 }
 
 function average(list) {
   return list.reduce((a,b) => b+=a) / list.length;
+}
+
+function compareResults(resultPlayerList, minUniqueTablesVisited, maxPlayedWithCount, averageMaxPlayedWithCount, bestRun) {
+  const maxPlayedWithCountCheck = options.changePeople ? (maxPlayedWithCount <= bestRun.maxPlayedWithCount) : true;
+  const averageMaxPlayedWithCountCheck = options.changePeople ? (averageMaxPlayedWithCount <= bestRun.averageMaxPlayedWithCount) : true;
+  const minUniqueTablesVisitedCheck = options.changeTables ? (minUniqueTablesVisited > bestRun.minUniqueTablesVisited) : true;
+  const isNewResultBetter = maxPlayedWithCountCheck && averageMaxPlayedWithCountCheck && minUniqueTablesVisitedCheck;
+  if (isNewResultBetter) {
+    return {
+      playerList: resultPlayerList,
+      maxPlayedWithCount: maxPlayedWithCount,
+      averageMaxPlayedWithCount: averageMaxPlayedWithCount,
+      minUniqueTablesVisited: minUniqueTablesVisited
+    }
+  } else {
+    return bestRun;
+  }
 }
 
 function chooseRandomly(numRounds) {
