@@ -66,3 +66,15 @@
 .button {
   margin: 1.5rem;
 }
+
+.run-button {
+  background-color: lightblue;
+  height: 3rem;
+  width: 7rem;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.download-button {
+  font-size: medium;
+}

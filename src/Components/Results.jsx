@@ -62,7 +62,7 @@ class Results extends Component {
         <p>Max of Everyone's Max Times Played With Someone: {result.maxPlayedWithCount}</p>
         <p>Average of Everyone's Max Times Played With Someone: {Math.round(result.averageMaxPlayedWithCount * 100) / 100}</p>
         <p>Minimum Number of Unique Tables Visited: {result.minUniqueTablesVisited}</p>
-        <button onClick={() => this.download()}>Download This Result</button>
+        <button onClick={() => this.download()} className='download-button'>Download This Result</button>
         <ol>
           {result.playerList.length > 0 &&
             result.playerList.sort((a,b) => a.id-b.id).map(player => this.renderPlayerRow(player))}

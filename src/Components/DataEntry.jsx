@@ -18,73 +18,30 @@ class DataEntry extends Component {
     this.state = {//TODO put back to normal
       firstRun: true,
       options: ['changePeople', 'changeTables'],
-      totalPlayers: 42,
-      // totalPlayers: 10,
+      totalPlayers: 10,
       totalRounds: 4,
       totalKids: 0,
-      // tables: [
-      //     {
-      //       id: 1,
-      //       name: 'Table 1',
-      //       size: 2
-      //     },
-      //     {
-      //       id: 2,
-      //       name: 'Table 2',
-      //       size: 2
-      //     },
-      //     {
-      //       id: 3,
-      //       name: 'Table 3',
-      //       size: 3
-      //     },
-      //     {
-      //       id: 4,
-      //       name: 'Table 4',
-      //       size: 3
-      //     },
-      // ],
       tables: [
-        {
-          id: 1,
-          name: 'Table 1',
-          size: 4
-        },
-        {
-          id: 2,
-          name: 'Table 2',
-          size: 4
-        },
-        {
-          id: 3,
-          name: 'Table 3',
-          size: 4
-        },
-        {
-          id: 4,
-          name: 'Table 4',
-          size: 6
-        },
-        {
-          id: 5,
-          name: 'Table 5',
-          size: 6
-        },
-        {
-          id: 6,
-          name: 'Table 6',
-          size: 6
-        },
-        {
-          id: 7,
-          name: 'Table 7',
-          size: 6
-        },
-        {
-          id: 8,
-          name: 'Table 8',
-          size: 6
-        }
+          {
+            id: 1,
+            name: 'Table 1',
+            size: 2
+          },
+          {
+            id: 2,
+            name: 'Table 2',
+            size: 2
+          },
+          {
+            id: 3,
+            name: 'Table 3',
+            size: 3
+          },
+          {
+            id: 4,
+            name: 'Table 4',
+            size: 3
+          },
       ],
       result: {}
     };
@@ -186,7 +143,7 @@ class DataEntry extends Component {
         <Tables
           tables={tables}
           handleTablesChange={this.handleTablesChange}/>
-        <button type='submit' className='button' onClick={this.handleFormSubmit}>{this.state.firstRun ? 'Run': 'Run Again'}</button>
+        <button type='submit' className='button run-button' onClick={this.handleFormSubmit}>{this.state.firstRun ? 'Run': 'Run Again'}</button>
       </div>
     );
   }
