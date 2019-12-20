@@ -43,6 +43,14 @@
   width: 4rem;
 }
 
+.form-input[type='number'] {
+  width: 2rem;
+}
+
+.game-input {
+  width: 8rem;
+}
+
 .tables {
   display: flex;
   flex-direction: column;

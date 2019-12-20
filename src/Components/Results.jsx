@@ -26,7 +26,8 @@ class Results extends Component {
       let tableData = "";
       player.assignedTables.forEach((tableId, index) => {
         const tableDetails = this.props.tables.find(t => t.id === tableId);
-        tableData += `Round ${index+1}: ${tableDetails.name}\n`;
+        const tableGame = tableDetails.games[index] && tableDetails.games[index].trim();
+        tableData += `Round ${index+1}: ${tableDetails.name}${tableGame ? ` - ${tableGame}` : ''}\n`;
       });
       formattedData += `${playerTitle}\n${tableData}\n\n`;
     });

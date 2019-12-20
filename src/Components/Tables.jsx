@@ -11,6 +11,7 @@ class Tables extends Component {
     super(props);
     this.handleTableNameChange = this.handleTableNameChange.bind(this);
     this.handleTableSizeChange = this.handleTableSizeChange.bind(this);
+    this.handleTableGamesChange = this.handleTableGamesChange.bind(this);
     this.addTableRow = this.addTableRow.bind(this);
     this.removeTable = this.removeTable.bind(this);
 }
@@ -24,7 +25,7 @@ class Tables extends Component {
         return {...table, name: changedTableValue};
       }
       return table;
-    })
+    });
     handleTablesChange(newTables);
   }
 
@@ -37,7 +38,21 @@ class Tables extends Component {
         return {...table, size: changedTableValue};
       }
       return table;
-    })
+    });
+    handleTablesChange(newTables);
+  }
+
+  handleTableGamesChange(e) {
+    const {tables, handleTablesChange} = this.props;
+    const changedTableValue = e.target.value;
+    const newGameList = changedTableValue.split(',');
+    const changedTableId = parseInt(e.target.parentNode.parentNode.id);
+    const newTables = tables.map(table => {
+      if(table.id === changedTableId) {
+        return {...table, games: newGameList};
+      }
+      return table;
+    });
     handleTablesChange(newTables);
   }
 
@@ -55,7 +70,8 @@ class Tables extends Component {
     const newTables = tables.concat({
       id: newTableNum,
       name: tableName,
-      size: 4
+      size: 4,
+      games: []
     })
     handleTablesChange(newTables);
   }
@@ -86,6 +102,14 @@ class Tables extends Component {
           controlFunc={this.handleTableSizeChange}
           content={table.size}
           />
+        <SingleInput
+          inputType='text'
+          classNames='game-input'
+          title='Games: '
+          name='tableGames'
+          controlFunc={this.handleTableGamesChange}
+          content={table.games.toString()}
+          />
         <button type='button' className='remove-button' onClick={this.removeTable}>X</button>
       </li>
     );
@@ -95,6 +119,7 @@ class Tables extends Component {
     return (
       <div className='tables'>
         <h3>Tables</h3>
+        <h5>Please enter a comma-separated list of games, with the same number of games as rounds</h5>
         {this.renderTableRows()}
         <button type='button' className='button' onClick={this.addTableRow}>Add Table</button>
       </div>

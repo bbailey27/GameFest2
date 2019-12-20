@@ -25,22 +25,26 @@ class DataEntry extends Component {
           {
             id: 1,
             name: 'Table 1',
-            size: 2
+            size: 2,
+            games: []
           },
           {
             id: 2,
             name: 'Table 2',
-            size: 2
+            size: 2,
+            games: []
           },
           {
             id: 3,
             name: 'Table 3',
-            size: 3
+            size: 3,
+            games: []
           },
           {
             id: 4,
             name: 'Table 4',
-            size: 3
+            size: 3,
+            games: []
           },
       ],
       result: {}
@@ -106,7 +110,6 @@ class DataEntry extends Component {
     totalKids: this.state.options.includes('kidsTable') ? this.state.totalKids : 0,
     numTables: this.state.tables.length,
     tables: this.state.tables
-
   };
 
   console.log('Send this in a POST request:', formPayload);
@@ -148,10 +151,9 @@ class DataEntry extends Component {
     );
   }
 }
-//TODO on form submit, convert options to booleans
+
 //TODO render tables without isKidsTable option for now
-//TODO consider mimicing excel and optimizing after randomness not during picking
-/*TODO add Configuration and Constraints middle pane or bottom section:
+/*TODO add Configuration and Constraints middle pane or bottom/top section:
 * Runtime options: run once, get the best of x number of times, or maybe run until the conditions are met (with a max/timeout returning the best so far?)
 * Constraints: conditions to define best (e.g. no playedWithCount over 3, minimize all playedWithCounts, no stayAtTableCount over 2)
 */

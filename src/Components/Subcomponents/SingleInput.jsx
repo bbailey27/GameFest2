@@ -5,7 +5,7 @@ const SingleInput = (props) => (
       <div className="form-group">
         <label className="form-label">{props.title}</label>
         <input
-          className="form-input"
+          className={`form-input ${props.classNames}`}
           name={props.name}
           type={props.inputType}
           value={props.content}
