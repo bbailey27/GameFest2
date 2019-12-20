@@ -1,13 +1,13 @@
 {
-  "main.css": "/GameFest2/static/css/main.0f441f50.chunk.css",
-  "main.js": "/GameFest2/static/js/main.c6952a16.chunk.js",
-  "main.js.map": "/GameFest2/static/js/main.c6952a16.chunk.js.map",
-  "static/js/1.23005d2f.chunk.js": "/GameFest2/static/js/1.23005d2f.chunk.js",
-  "static/js/1.23005d2f.chunk.js.map": "/GameFest2/static/js/1.23005d2f.chunk.js.map",
+  "main.css": "/GameFest2/static/css/main.e966f2fd.chunk.css",
+  "main.js": "/GameFest2/static/js/main.e5627edb.chunk.js",
+  "main.js.map": "/GameFest2/static/js/main.e5627edb.chunk.js.map",
+  "static/js/1.3d60043b.chunk.js": "/GameFest2/static/js/1.3d60043b.chunk.js",
+  "static/js/1.3d60043b.chunk.js.map": "/GameFest2/static/js/1.3d60043b.chunk.js.map",
   "runtime~main.js": "/GameFest2/static/js/runtime~main.32ae33d0.js",
   "runtime~main.js.map": "/GameFest2/static/js/runtime~main.32ae33d0.js.map",
-  "static/css/main.0f441f50.chunk.css.map": "/GameFest2/static/css/main.0f441f50.chunk.css.map",
+  "static/css/main.e966f2fd.chunk.css.map": "/GameFest2/static/css/main.e966f2fd.chunk.css.map",
   "index.html": "/GameFest2/index.html",
-  "precache-manifest.9e3fe5a30c0ac39a76f467dbe22eacdf.js": "/GameFest2/precache-manifest.9e3fe5a30c0ac39a76f467dbe22eacdf.js",
+  "precache-manifest.5e5fe0b8caab730115e73e022a98bc37.js": "/GameFest2/precache-manifest.5e5fe0b8caab730115e73e022a98bc37.js",
   "service-worker.js": "/GameFest2/service-worker.js"
 }
