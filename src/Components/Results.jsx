@@ -7,9 +7,35 @@ class Results extends Component {
     this.renderTableRow = this.renderTableRow.bind(this);
   }
 
+  download = () => {
+    const formattedData = this.formatData(this.props.result.playerList.sort((a,b) => a.id-b.id));
+    const encodedData = btoa(formattedData);
+    const dataURL = `data:text/octet-stream;base64,${encodedData}`;
+    const a = document.createElement("a");
+    a.href = dataURL;
+    a.setAttribute("download", "gamefest.txt");
+    a.click();
+  };
+
+  toBijective = n => (n > 26 ? this.toBijective(Math.floor((n - 1) / 26)) : "") + ((n % 26 || 26) + 9).toString(36).toUpperCase();
+
+  formatData = (data) => {
+    let formattedData = "";
+    data.forEach((player) => {
+      const playerTitle = `Player ${this.toBijective(player.id+1)}`;
+      let tableData = "";
+      player.assignedTables.forEach((tableId, index) => {
+        const tableDetails = this.props.tables.find(t => t.id === tableId);
+        tableData += `Round ${index+1}: ${tableDetails.name}\n`;
+      });
+      formattedData += `${playerTitle}\n${tableData}\n\n`;
+    });
+    return formattedData;
+  };
+
   renderPlayerRow(player) {
     return (
-      <li key={player.id}>
+      <li key={player.id} className='result-list-item'>
         <p>Player {player.id + 1}:</p>
         <ol>
           {player.assignedTables.map((tableId, index) => this.renderTableRow(player.id, index, tableId))}
@@ -20,7 +46,7 @@ class Results extends Component {
 
   renderTableRow(playerId, tableIndex, tableId) {
     const tableDetails = this.props.tables.find(t => t.id === tableId);
-    return (<li key={playerId + '-' + tableIndex}>{tableDetails.name} ({tableDetails.size})</li>);
+    return (<li key={playerId + '-' + tableIndex} className='result-list-item'>{tableDetails.name} ({tableDetails.size})</li>);
   }
 
   renderPlayedWith(playedWithList) {
@@ -36,6 +62,7 @@ class Results extends Component {
         <p>Max of Everyone's Max Times Played With Someone: {result.maxPlayedWithCount}</p>
         <p>Average of Everyone's Max Times Played With Someone: {Math.round(result.averageMaxPlayedWithCount * 100) / 100}</p>
         <p>Minimum Number of Unique Tables Visited: {result.minUniqueTablesVisited}</p>
+        <button onClick={() => this.download()}>Download This Result</button>
         <ol>
           {result.playerList.length > 0 &&
             result.playerList.sort((a,b) => a.id-b.id).map(player => this.renderPlayerRow(player))}

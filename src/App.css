@@ -15,6 +15,14 @@
   width: 50%;
 }
 
+.right-pane {
+  text-align: left;
+}
+
+.right-pane h2 {
+    text-align: cetner;
+  }
+
 .options {
   display: flex;
   flex-direction: column;
@@ -49,6 +57,10 @@
 .table-row {
   display: flex;
   flex-direction: row;
+}
+
+.result-list-item {
+  list-style: none;
 }
 
 .button {
