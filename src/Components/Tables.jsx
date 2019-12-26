@@ -119,7 +119,7 @@ class Tables extends Component {
     return (
       <div className='tables'>
         <h3>Tables</h3>
-        <p style={{padding:'0 1rem', marginTop: 0}}>Please enter a comma-separated list of games, with the same number of games as rounds</p>
+        <p style={{padding:'0 1rem', marginTop: 0}}>(Optional) Please enter a comma-separated list of games for each round</p>
         {this.renderTableRows()}
         <button type='button' className='button' onClick={this.addTableRow}>Add Table</button>
       </div>

@@ -8,6 +8,8 @@ const SingleInput = (props) => (
           className={`form-input ${props.classNames}`}
           name={props.name}
           type={props.inputType}
+          min={props.min}
+          max={props.max}
           value={props.content}
           onChange={props.controlFunc}
           placeholder={props.placeholder} />

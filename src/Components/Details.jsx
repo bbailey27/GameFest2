@@ -29,7 +29,7 @@ class Details extends Component {
   render() {
     const {totalPlayers, totalRounds, handleNumPlayersChange, handleNumRoundsChange, isKidsTable} = this.props;
     return (
-      <div className='details'>
+      <div className='details data-entry-subsection'>
         <h3>Details</h3>
         <SingleInput
           inputType='number'

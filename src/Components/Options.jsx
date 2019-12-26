@@ -10,7 +10,7 @@ class Options extends Component {
 
   render() {
     return (
-      <div className='options'>
+      <div className='options data-entry-subsection'>
         <h3>Options</h3>
         <CheckboxGroup
           className='checkbox-group'

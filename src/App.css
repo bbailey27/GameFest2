@@ -1,38 +1,65 @@
 .App {
-  /*background-color: #282c34;*/
   text-align: center;
 }
 
 .App-body {
   min-height: 100vh;
   display: flex;
-  /*align-items: center;*/
   justify-content: space-around;
 }
 
 .left-pane,
 .right-pane {
   width: 50%;
+  padding: 0 1rem;
 }
 
 .right-pane {
   text-align: left;
 }
 
-.right-pane h2 {
-    text-align: cetner;
-  }
+.radio-button {
+  width: 70%;
+}
 
-.options {
+.column {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.column-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  align-self: center;
+  margin: 0 1rem;
+}
+
+.data-entry-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.data-entry-section-with-subsections {
+  display: flex;
+  flex-direction: row;
+}
+
+.data-entry-subsection {
+  width: 50%;
+  padding: 0 0.25rem;
 }
 
 .checkbox-group {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  text-align: left;
 }
 
 .form-group {
@@ -44,17 +71,11 @@
 }
 
 .form-input[type='number'] {
-  width: 2rem;
+  width: 3rem;
 }
 
 .game-input {
   width: 8rem;
-}
-
-.tables {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .table-list {

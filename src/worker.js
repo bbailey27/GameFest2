@@ -4,10 +4,12 @@ let totalRounds = 0;
 let totalPlayers = 0;
 let tableDetails = [];
 let options = {};
+let algorithmChoice = '';
+let algorithmDetails = {};
 
 export function runOrganizer(userInput) {
   initializeData(userInput);
-  return runAlgorithm(userInput.totalRounds);
+  return runAlgorithm();
 }
 
 function initializeData(userInput) {
@@ -18,9 +20,17 @@ function initializeData(userInput) {
     kidsTable: userInput.kidsTable,
     changePeople: userInput.changePeople,
     changeTables: userInput.changeTables
-  }
+  };
   playerList = getEmptyPlayerList();
   tableList = getEmptyTableList();
+  algorithmChoice = userInput.algorithmChoice;
+  algorithmDetails = {
+    numTimesToRun: userInput.numTimesToRun,
+    maxPlayedWithAllowed: userInput.maxPlayedWithAllowed,
+    maxAveragePlayedWithAllowed: userInput.maxAveragePlayedWithAllowed,
+    minUniqueTablesAllowed: userInput.minUniqueTablesAllowed,
+    maxRuns: userInput.maxRuns
+  };
 }
 
 function getEmptyPlayerList() {
@@ -49,7 +59,7 @@ function resetRunData() {
 }
 
 // Randomly pick for each round then chose the best overall run
-function runAlgorithm(rounds) {
+function runAlgorithm() {
   // Reset data between rounds
   tableList = getEmptyTableList();
 
@@ -57,13 +67,64 @@ function runAlgorithm(rounds) {
   playerList.sort(function(a, b){return 0.5 - Math.random()});
   tableList.sort(function(a, b){return 0.5 - Math.random()});
 
-  //Different Run Options
-  const result = runRandomXTimes(500, totalRounds); // 500 is a good number
+  // Different Run Options
+  let result;
+  switch (algorithmChoice) {
+    case 'runRandomXTimes':
+      result = runRandomXTimes(algorithmDetails.numTimesToRun); // 500 is a good number
+      break;
+    case 'runUntilConstraints':
+      result = runUntilConstraints();
+      break;
+    default:
+      result = runRandomXTimes(algorithmDetails.numTimesToRun); // 500 is a good number
+      break;
+  }
   console.log('RESULT', result);
   return result;
 }
 
-function runRandomXTimes(numRuns, numRounds) {
+// todo add max times to run
+function runUntilConstraints() {
+  let constraintsMet = false;
+  let result = {
+    playerList: [],
+    maxPlayedWithCount: 100,
+    averageMaxPlayedWithCount: 100,
+    minUniqueTablesVisited: 0
+  };
+  let runCount = 0;
+  while (!constraintsMet && (runCount < algorithmDetails.maxRuns)) {
+    result = runRandomAndChooseBest(result);
+    constraintsMet = checkConstraints(result);
+    runCount++;
+  }
+  return result;
+}
+
+function checkConstraints(result) {
+  const {maxPlayedWithAllowed, maxAveragePlayedWithAllowed, minUniqueTablesAllowed} = algorithmDetails;
+  const maxPlayedWithCount = getMaxPlayedWithCount(result.playerList);
+  const averageMaxPlayedWithCount = getAverageMaxPlayedWithCount(result.playerList);
+  const minUniqueTablesVisited = getMinUniqueTablesVisited(result.playerList);
+  const constraintsMet =
+    maxPlayedWithCount <= maxPlayedWithAllowed
+    && averageMaxPlayedWithCount <= maxAveragePlayedWithAllowed
+    && minUniqueTablesVisited >= minUniqueTablesAllowed;
+  return constraintsMet;
+}
+
+function runRandomAndChooseBest(currentBestRun) {
+  // Reset data between runs
+  resetRunData();
+
+  const resultPlayerList = chooseRandomly(totalRounds);//returns a cloned version of the global playerList
+
+  // Replace result if better
+  return compareResults(resultPlayerList, currentBestRun);
+}
+
+function runRandomXTimes(numRuns) {
   let bestRun = {
     playerList: [],
     maxPlayedWithCount: 100,
@@ -71,31 +132,7 @@ function runRandomXTimes(numRuns, numRounds) {
     minUniqueTablesVisited: 0
   };
   for (var i = 0; i < numRuns; i++) {
-    // Reset data between runs
-    resetRunData();
-    let resultPlayerList = [];
-    let maxPlayedWithCount = 100;
-    let averageMaxPlayedWithCount = 100;
-    let minUniqueTablesVisited = 0;
-
-    resultPlayerList = chooseRandomly(numRounds);//returns a cloned version of the global playerList
-    // minimum number of unique tables visited - to help with the changeTables constraint
-    // calculated by creating an array of unique tables for each player, getting the lengths of those lists , then finding the minimum value among the players
-    minUniqueTablesVisited = Math.min(...[...new Set(resultPlayerList.map(
-      (player) => [...new Set(player.assignedTables)].length))]);
-    // max times anyone played with anyone else
-    // calculated by finding the max playedWith count for each player then taking the max of those values
-    maxPlayedWithCount = Math.max(...resultPlayerList.map(
-      (player) => Math.max(...player.playedWith)
-    ));
-    // average of max times everyone played with a specific person
-    // calculated by finding the maxPlayedWithCount for each player and then taking the average of those values
-    averageMaxPlayedWithCount = average(resultPlayerList.map(
-      (player) => Math.max(...player.playedWith)
-    ));
-
-    // Replace result if better
-    bestRun = compareResults(resultPlayerList, minUniqueTablesVisited, maxPlayedWithCount, averageMaxPlayedWithCount, bestRun);
+    bestRun = runRandomAndChooseBest(bestRun);
   }
   return bestRun;
 }
@@ -104,7 +141,33 @@ function average(list) {
   return list.reduce((a,b) => b+=a) / list.length;
 }
 
-function compareResults(resultPlayerList, minUniqueTablesVisited, maxPlayedWithCount, averageMaxPlayedWithCount, bestRun) {
+function getMinUniqueTablesVisited(resultPlayerList) {
+  // minimum number of unique tables visited - to help with the changeTables constraint
+  // calculated by creating an array of unique tables for each player, getting the lengths of those lists , then finding the minimum value among the players
+  return Math.min(...[...new Set(resultPlayerList.map(
+    (player) => [...new Set(player.assignedTables)].length))]);
+}
+
+function getMaxPlayedWithCount(resultPlayerList) {
+  // max times anyone played with anyone else
+  // calculated by finding the max playedWith count for each player then taking the max of those values
+  return Math.max(...resultPlayerList.map(
+    (player) => Math.max(...player.playedWith)
+  ));
+}
+
+function getAverageMaxPlayedWithCount(resultPlayerList) {
+  // average of max times everyone played with a specific person
+  // calculated by finding the maxPlayedWithCount for each player and then taking the average of those values
+  return average(resultPlayerList.map(
+    (player) => Math.max(...player.playedWith)
+  ));
+}
+
+function compareResults(resultPlayerList, bestRun) {
+  const minUniqueTablesVisited = getMinUniqueTablesVisited(resultPlayerList);
+  const maxPlayedWithCount = getMaxPlayedWithCount(resultPlayerList);
+  const averageMaxPlayedWithCount = getAverageMaxPlayedWithCount(resultPlayerList);
   const maxPlayedWithCountCheck = options.changePeople ? (maxPlayedWithCount <= bestRun.maxPlayedWithCount) : true;
   const averageMaxPlayedWithCountCheck = options.changePeople ? (averageMaxPlayedWithCount <= bestRun.averageMaxPlayedWithCount) : true;
   const minUniqueTablesVisitedCheck = options.changeTables ? (minUniqueTablesVisited > bestRun.minUniqueTablesVisited) : true;
