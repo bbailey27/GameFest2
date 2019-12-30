@@ -81,11 +81,21 @@
 .table-list {
   padding-left: 0;
   margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .table-row {
   display: flex;
   flex-direction: row;
+}
+
+@media (max-width: 800px) {
+  .table-row {
+    flex-direction: column;
+    padding: 1.5rem 0;
+  }
 }
 
 .result-list-item {
@@ -96,8 +106,14 @@
   margin: 1.5rem;
 }
 
+.remove-button {
+  background-color: #eb4034;
+  color: white;
+  font-weight: bolder;
+}
+
 .run-button {
-  background-color: lightblue;
+  background-color: rgb(140, 185, 253);
   height: 3rem;
   width: 7rem;
   font-size: medium;

@@ -144,7 +144,7 @@ class DataEntry extends Component {
     this.setState({firstRun: false});
   }
 }
-
+// TODO change to across the top to have more room for table data entry
   render() {
     const {
       options,
