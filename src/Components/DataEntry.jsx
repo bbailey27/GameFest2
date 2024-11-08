@@ -8,7 +8,7 @@ import { runOrganizer } from '../worker';
 const defaultData = {
   firstRun: true,
   options: ['changePeople', 'changeTables'],
-  totalPlayers: 10,
+  totalPlayers: 20,
   totalRounds: 4,
   totalKids: 0,
   algorithmChoice: 'runRandomXTimes',
@@ -16,18 +16,19 @@ const defaultData = {
   maxPlayedWithAllowed: 4,
   maxAveragePlayedWithAllowed: 4,
   minUniqueTablesAllowed: 1,
-  maxRuns: 10000,
+  minAverageUniqueTablesAllowed: 1,
+  maxRuns: 50000,
   tables: [
       {
         id: 1,
         name: 'Table 1',
-        size: 2,
+        size: 4,
         games: []
       },
       {
         id: 2,
         name: 'Table 2',
-        size: 2,
+        size: 4,
         games: []
       },
       {
@@ -40,6 +41,12 @@ const defaultData = {
         id: 4,
         name: 'Table 4',
         size: 3,
+        games: []
+      },
+      {
+        id: 5,
+        name: 'Table 5',
+        size: 6,
         games: []
       },
   ],
@@ -126,6 +133,7 @@ class DataEntry extends Component {
     maxPlayedWithAllowed: this.state.maxPlayedWithAllowed,
     maxAveragePlayedWithAllowed: this.state.maxAveragePlayedWithAllowed,
     minUniqueTablesAllowed: this.state.minUniqueTablesAllowed,
+    minAverageUniqueTablesAllowed: this.state.minAverageUniqueTablesAllowed,
     maxRuns: this.state.maxRuns,
     numTables: this.state.tables.length,
     tables: this.state.tables
@@ -156,6 +164,7 @@ class DataEntry extends Component {
       maxPlayedWithAllowed,
       maxAveragePlayedWithAllowed,
       minUniqueTablesAllowed,
+      minAverageUniqueTablesAllowed,
       maxRuns,
       tables} = this.state;
     return (
@@ -184,6 +193,7 @@ class DataEntry extends Component {
           maxPlayedWithAllowed={maxPlayedWithAllowed}
           maxAveragePlayedWithAllowed={maxAveragePlayedWithAllowed}
           minUniqueTablesAllowed={minUniqueTablesAllowed}
+          minAverageUniqueTablesAllowed={minAverageUniqueTablesAllowed}
           maxRuns={maxRuns}
           handleAlgorithmChange={this.handleAlgorithmChange}
           handleNumberChange={this.handleNumberChange} />
