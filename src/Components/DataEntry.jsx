@@ -162,10 +162,10 @@ class DataEntry extends Component {
       <div className='column'>
         <h2 className='heading'>Enter Your Data</h2>
         <div className='data-entry-section-with-subsections'>
-          <Options
+          {/* <Options
             className='data-entry-subsection'
             options={options}
-            onOptionsChange={this.handleOptionsChange} />
+            onOptionsChange={this.handleOptionsChange} /> */}
           <Details
             className='data-entry-subsection'
             isKidsTable={options.includes('kidsTable') ? true : false}

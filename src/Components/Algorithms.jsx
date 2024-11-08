@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { RadioGroup, RadioButton } from 'react-radio-buttons';
+// import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import Constraints from './Constraints';
 
 class Algorithms extends Component {
@@ -20,14 +20,14 @@ class Algorithms extends Component {
     return (
       <div className='data-entry-section'>
         <h3>Algorithm Options</h3>
-        <RadioGroup onChange={ this.props.handleAlgorithmChange } value={this.props.algorithmChoice} className='radio-button'>
+        {/* <RadioGroup onChange={ this.props.handleAlgorithmChange } value={this.props.algorithmChoice} className='radio-button'>
           <RadioButton value='runRandomXTimes' css={{width: '100%'}}>
             Best of X Random Runs
           </RadioButton>
           <RadioButton value='runUntilConstraints'>
             Run Until Custom Constraints Met
           </RadioButton>
-        </RadioGroup>
+        </RadioGroup> */}
         <Constraints
           algorithmChoice={this.props.algorithmChoice}
           totalRounds={this.props.totalRounds}
