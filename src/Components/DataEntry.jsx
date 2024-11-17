@@ -3,6 +3,7 @@ import Options from './Options';
 import Details from './Details';
 import Algorithms from './Algorithms';
 import Tables from './Tables';
+import StatefulButton from './Subcomponents/StatefulButton';
 import { runOrganizer } from '../worker';
 
 const defaultData = {
@@ -203,14 +204,10 @@ class DataEntry extends Component {
           handleTablesChange={this.handleTablesChange}/>
         <button type='submit' className='button run-button' onClick={this.handleFormSubmit}>{this.state.firstRun ? 'Run': 'Run Again'}</button>
         <button className='button' onClick={this.handleClearForm}>Clear Form</button>
+        <StatefulButton type='text' text='Testing' onChange={() => alert('changed')} selected={true} name='change-tables' />
       </div>
     );
   }
 }
 
-//TODO render tables without isKidsTable option for now
-/*TODO add Configuration and Constraints middle pane or bottom/top section:
-* Runtime options: run once, get the best of x number of times, or maybe run until the conditions are met (with a max/timeout returning the best so far?)
-* Constraints: conditions to define best (e.g. no playedWithCount over 3, minimize all playedWithCounts, no stayAtTableCount over 2)
-*/
 export default DataEntry;

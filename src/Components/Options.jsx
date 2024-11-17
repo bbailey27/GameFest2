@@ -18,6 +18,16 @@
 //           name="options"
 //           value={this.props.options}
 //           onChange={this.props.onOptionsChange}>
+//   render() {
+//     return (
+//       <div className='options data-entry-subsection'>
+//         <h3>Options</h3>
+//         <CheckboxGroup
+//           className='checkbox-group'
+//           checkboxDepth={2}
+//           name="options"
+//           value={this.props.options}
+//           onChange={this.props.onOptionsChange}>
 
 //           <label><Checkbox value="kidsTable"/> Kids' Table</label>
 //           <label><Checkbox value="changeTables"/> Always Change Tables</label>
@@ -26,6 +36,15 @@
 //       </div>
 //     );
 //   }
+//           <label><Checkbox value="kidsTable"/> Kids' Table</label>
+//           <label><Checkbox value="changeTables"/> Always Change Tables</label>
+//           <label><Checkbox value="changePeople"/> Play With Different People</label>
+//         </CheckboxGroup>
+//       </div>
+//     );
+//   }
 
+// }
+// export default Options;
 // }
 // export default Options;
