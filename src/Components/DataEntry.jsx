@@ -8,10 +8,12 @@ import { runOrganizer } from '../worker';
 
 const defaultData = {
   firstRun: true,
-  options: ['changePeople', 'changeTables'],
+  options: {
+    changePeople: false,
+    changeTables: false,
+  },
   totalPlayers: 20,
   totalRounds: 4,
-  totalKids: 0,
   algorithmChoice: 'runRandomXTimes',
   numTimesToRun: 500,
   maxPlayedWithAllowed: 4,
@@ -60,7 +62,6 @@ class DataEntry extends Component {
     this.handleOptionsChange = this.handleOptionsChange.bind(this);
     this.handleNumPlayersChange = this.handleNumPlayersChange.bind(this);
     this.handleNumRoundsChange = this.handleNumRoundsChange.bind(this);
-    this.handleNumKidsChange = this.handleNumKidsChange.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleAlgorithmChange = this.handleAlgorithmChange.bind(this);
     this.handleTablesChange = this.handleTablesChange.bind(this);
@@ -70,10 +71,12 @@ class DataEntry extends Component {
     this.state = JSON.parse(JSON.stringify(defaultData));
   }
 
-  //TODO handle other options
-  handleOptionsChange = (newOptions) => {
+  handleOptionsChange = (option, value) => {
     this.setState({
-      options: newOptions
+      options: {
+        ...this.state.options,
+        [option]: value
+      }
     });
   }
 
@@ -89,13 +92,6 @@ class DataEntry extends Component {
     });
   }
 
-  handleNumKidsChange = (e) => {
-    this.setState({
-      totalKids: parseInt(e.target.value) ? parseInt(e.target.value) : 0
-    });
-  }
-//todo use this for other number values
-//todo variable defaults if this is an error?
   handleNumberChange = (e, property) => {
     this.setState({
       [property]: parseInt(e.target.value) ? parseInt(e.target.value) : 0
@@ -123,12 +119,9 @@ class DataEntry extends Component {
   e.preventDefault();
 
   const formPayload = {
-    changePeople: this.state.options.includes('changePeople'),
-    changeTables: this.state.options.includes('changeTables'),
-    kidsTable: this.state.options.includes('kidsTable'),
+    options: this.state.options,
     totalPlayers: this.state.totalPlayers,
     totalRounds: this.state.totalRounds,
-    totalKids: this.state.options.includes('kidsTable') ? this.state.totalKids : 0,
     algorithmChoice: this.state.algorithmChoice,
     numTimesToRun: this.state.numTimesToRun,
     maxPlayedWithAllowed: this.state.maxPlayedWithAllowed,
@@ -159,7 +152,6 @@ class DataEntry extends Component {
       options,
       totalPlayers,
       totalRounds,
-      totalKids,
       algorithmChoice,
       numTimesToRun,
       maxPlayedWithAllowed,
@@ -172,19 +164,16 @@ class DataEntry extends Component {
       <div className='column'>
         <h2 className='heading'>Enter Your Data</h2>
         <div className='data-entry-section-with-subsections'>
-          {/* <Options
+          <Options
             className='data-entry-subsection'
             options={options}
-            onOptionsChange={this.handleOptionsChange} /> */}
+            handleOptionsChange={this.handleOptionsChange} />
           <Details
             className='data-entry-subsection'
-            isKidsTable={options.includes('kidsTable') ? true : false}
             totalPlayers={totalPlayers}
             totalRounds={totalRounds}
-            totalKids={totalKids}
             handleNumPlayersChange={this.handleNumPlayersChange}
-            handleNumRoundsChange={this.handleNumRoundsChange}
-            handleNumKidsChange={this.handleNumKidsChange} />
+            handleNumRoundsChange={this.handleNumRoundsChange} />
         </div>
         <Algorithms
           algorithmChoice={algorithmChoice}
@@ -204,7 +193,6 @@ class DataEntry extends Component {
           handleTablesChange={this.handleTablesChange}/>
         <button type='submit' className='button run-button' onClick={this.handleFormSubmit}>{this.state.firstRun ? 'Run': 'Run Again'}</button>
         <button className='button' onClick={this.handleClearForm}>Clear Form</button>
-        <StatefulButton type='text' text='Testing' onChange={() => alert('changed')} selected={true} name='change-tables' />
       </div>
     );
   }

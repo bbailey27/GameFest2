@@ -7,7 +7,7 @@ class Algorithms extends Component {
   static propTypes = {
     algorithmChoice: PropTypes.string.isRequired,
     totalRounds: PropTypes.number.isRequired,
-    options: PropTypes.array.isRequired,
+    options: PropTypes.object.isRequired,
     maxPlayedWithAllowed: PropTypes.number.isRequired,
     maxAveragePlayedWithAllowed: PropTypes.number.isRequired,
     minUniqueTablesAllowed: PropTypes.number.isRequired,

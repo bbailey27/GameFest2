@@ -6,30 +6,31 @@ StatefulButton.propTypes = {
   selected: PropTypes.bool.isRequired,
   text: PropTypes.string,
   icon: PropTypes.string,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   // TODO pull a simple selected/unselected toggle handler out into a util for reuse
   // but I don't think I should just put that logic here since I'll want the parent to be aware of changes? Could add context instead
+  // TODO decide what the selected status does in terms of styling - fill in the background?
 };
 
 function StatefulButton({
   type,
   selected,
   text,
-  icon,
+  Icon,
   name,
   onChange
 }) {
 
-  const className = selected ? 'stateful-button-selected' : 'stateful-button-unselected'
+  const className = selected ? 'stateful-button stateful-button--selected' : 'stateful-button  stateful-button--unselected'
 
   return (
     <div className={className} onClick={onChange}>
       {(type === 'icon' || type === 'composite') && 
-        <img src={icon} alt={name} />
+        <Icon />
       }
       {(type === 'text' || type === 'composite') && 
-        <p>{text}</p>
+        <label>{text}</label>
       }
     </div>
   )

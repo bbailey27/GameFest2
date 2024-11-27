@@ -1,11 +1,57 @@
+:root {
+  /* https://colorffy.com/dark-theme-generator?colors=00c3ff-121212 */
+
+  /** Dark theme primary colors */
+  --color-primary-a0: #00c3ff;
+  --color-primary-a10: #4dcaff;
+  --color-primary-a20: #6ed0ff;
+  --color-primary-a30: #88d7ff;
+  --color-primary-a40: #9fdeff;
+  --color-primary-a50: #b4e4ff;
+
+  /** Dark theme surface colors */
+  --color-surface-a0: #121212;
+  --color-surface-a10: #282828;
+  --color-surface-a20: #3f3f3f;
+  --color-surface-a30: #575757;
+  --color-surface-a40: #717171;
+  --color-surface-a50: #8b8b8b;
+
+  /** Dark theme mixed surface colors */
+  --color-surface-mixed-a0: #1f313a;
+  --color-surface-mixed-a10: #35454d;
+  --color-surface-mixed-a20: #4b5a61;
+  --color-surface-mixed-a30: #636f76;
+  --color-surface-mixed-a40: #7b868b;
+  --color-surface-mixed-a50: #949da2;
+
+  --color-text-white: #fff;
+
+}
+
+html, body {
+  margin: 0;          /* Remove default margins */
+  padding: 0;         /* Remove default padding */
+  height: 100%;       /* Ensure it covers the viewport */
+  background-color: var(--color-surface-mixed-a0); /* Set your desired color */
+}
+
+
 .App {
   text-align: center;
+  background-color: var(--color-surface-mixed-a0);
+  color: var(--color-text-white);
+  min-height: 100vh;
 }
 
 .App-body {
-  min-height: 100vh;
   display: flex;
   justify-content: space-around;
+}
+
+h1 {
+  margin: 0;
+  padding: 1rem;
 }
 
 .left-pane,
@@ -55,11 +101,33 @@
   padding: 0 0.25rem;
 }
 
-.checkbox-group {
+.options-group {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.stateful-button {
+  width: 30%;
+  border-radius: .7rem;
+  padding: 1rem;
+  height: 100%;
+  color: var(--color-primary-a10)
+}
+
+.stateful-button--selected {
+  background-color: var(--color-surface-mixed-a10);
+  font-weight: bold;
+}
+
+.stateful-button:hover {
+
+}
+
+.stateful-button--unselected {
+
 }
 
 .form-group {

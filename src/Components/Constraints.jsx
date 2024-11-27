@@ -9,7 +9,7 @@ class Constraints extends Component {
   static propTypes = {
     algorithmChoice: PropTypes.string.isRequired,
     totalRounds: PropTypes.number.isRequired,
-    options: PropTypes.array.isRequired,
+    options: PropTypes.object.isRequired,
     numTimesToRun: PropTypes.number.isRequired,
     maxPlayedWithAllowed: PropTypes.number.isRequired,
     maxAveragePlayedWithAllowed: PropTypes.number.isRequired,
@@ -19,15 +19,14 @@ class Constraints extends Component {
   }
 
   renderRunUntilConstraints() {
-    const {options} = this.props;
-    const changePeopleOption = options.includes('changePeople');
-    const changeTablesOption = options.includes('changeTables');
+    const {changePeople, changeTables} = this.props.options;
+
     return (
       <div>
-        {changePeopleOption && this.renderMaxPlayedWithAllowedInput()}
-        {changePeopleOption && this.renderMaxAveragePlayedWithAllowedInput()}
-        {changeTablesOption && this.renderMinUniqueTablesAllowedInput()}
-        {changeTablesOption && this.renderMaxRunsInput()}
+        {changePeople && this.renderMaxPlayedWithAllowedInput()}
+        {changePeople && this.renderMaxAveragePlayedWithAllowedInput()}
+        {changeTables && this.renderMinUniqueTablesAllowedInput()}
+        {changeTables && this.renderMaxRunsInput()}
       </div>
     );
   }

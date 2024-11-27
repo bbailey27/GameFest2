@@ -16,11 +16,7 @@ function initializeData(userInput) {
   totalRounds = userInput.totalRounds;
   totalPlayers = userInput.totalPlayers;
   tableDetails = userInput.tables;
-  options = {
-    kidsTable: userInput.kidsTable,
-    changePeople: userInput.changePeople,
-    changeTables: userInput.changeTables
-  };
+  options = userInput.options;
   playerList = getEmptyPlayerList();
   tableList = getEmptyTableList();
   algorithmChoice = userInput.algorithmChoice;
