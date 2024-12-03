@@ -12,7 +12,7 @@ const SingleInput = (props) => (
           max={props.max}
           step={props.step}
           value={props.content}
-          onChange={props.controlFunc}
+          onChange={props.onChange}
           placeholder={props.placeholder} />
       </div>
     );
@@ -21,7 +21,7 @@ SingleInput.propTypes = {
   inputType: PropTypes.oneOf(['text', 'number']).isRequired,
   title: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  controlFunc: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   content: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

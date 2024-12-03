@@ -11,7 +11,6 @@ const defaultData = {
     changePeople: true,
     changeTables: true,
   },
-  totalPlayers: 20,
   totalRounds: 4,
   algorithmChoice: 'runRandomNTimes',
   numTimesToRun: 500,
@@ -59,8 +58,6 @@ class DataEntry extends Component {
   constructor(props) {
     super(props);
     this.handleOptionsChange = this.handleOptionsChange.bind(this);
-    this.handleNumPlayersChange = this.handleNumPlayersChange.bind(this);
-    this.handleNumRoundsChange = this.handleNumRoundsChange.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleDecimalChange = this.handleDecimalChange.bind(this);
     this.handleAlgorithmChange = this.handleAlgorithmChange.bind(this);
@@ -80,21 +77,10 @@ class DataEntry extends Component {
     });
   }
 
-  handleNumPlayersChange = (e) => {
+  handleNumberChange = (e, property, value = null) => {
+    const newValue = value !== null ? value : parseInt(e.target.value) || 0;
     this.setState({
-      totalPlayers: parseInt(e.target.value) ? parseInt(e.target.value) : 0
-    });
-  }
-
-  handleNumRoundsChange = (e) => {
-    this.setState({
-      totalRounds: parseInt(e.target.value) ? parseInt(e.target.value) : 0
-    });
-  }
-
-  handleNumberChange = (e, property) => {
-    this.setState({
-      [property]: parseInt(e.target.value) ? parseInt(e.target.value) : 0
+      [property]: newValue
     });
   }
 
@@ -125,9 +111,13 @@ class DataEntry extends Component {
   handleFormSubmit = (e) => {
   e.preventDefault();
 
+  const totalPlayers = this.state.tables.reduce((accumulator, currentItem) => {
+    return accumulator + currentItem.size
+  }, 0)
+
   const formPayload = {
     options: this.state.options,
-    totalPlayers: this.state.totalPlayers,
+    totalPlayers,
     totalRounds: this.state.totalRounds,
     algorithmChoice: this.state.algorithmChoice,
     numTimesToRun: this.state.numTimesToRun,
@@ -141,23 +131,15 @@ class DataEntry extends Component {
   };
 
   console.log('Send this in a POST request:', formPayload);
-  const totalTableSpots = formPayload.tables.reduce(function(a, b) {
-        return a + b.size;
-    }, 0);
-  if (formPayload.totalPlayers !== totalTableSpots) {
-    throw new Error('Number of players must match number of table spots');
-  } else {
-    let result = runOrganizer(formPayload);
-    this.props.handleTablesReady(this.state.tables);
-    this.props.handleResultReady(result);
-    this.setState({firstRun: false});
-  }
+  let result = runOrganizer(formPayload);
+  this.props.handleTablesReady(this.state.tables);
+  this.props.handleResultReady(result);
+  this.setState({firstRun: false});
 }
 // TODO change to across the top to have more room for table data entry
   render() {
     const {
       options,
-      totalPlayers,
       totalRounds,
       algorithmChoice,
       numTimesToRun,
@@ -177,10 +159,8 @@ class DataEntry extends Component {
             handleOptionsChange={this.handleOptionsChange} />
           <Details
             className='data-entry-subsection'
-            totalPlayers={totalPlayers}
             totalRounds={totalRounds}
-            handleNumPlayersChange={this.handleNumPlayersChange}
-            handleNumRoundsChange={this.handleNumRoundsChange} />
+            handleNumberChange={this.handleNumberChange} />
         </div>
         <Algorithms
           algorithmChoice={algorithmChoice}

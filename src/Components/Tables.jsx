@@ -92,14 +92,14 @@ class Tables extends Component {
           inputType='text'
           title='Name: '
           name='tableName'
-          controlFunc={this.handleTableNameChange}
+          onChange={this.handleTableNameChange}
           content={table.name}
           />
         <SingleInput
           inputType='number'
           title='Size: '
           name='tableSize'
-          controlFunc={this.handleTableSizeChange}
+          onChange={this.handleTableSizeChange}
           content={table.size}
           />
         <SingleInput
@@ -107,7 +107,7 @@ class Tables extends Component {
           classNames='game-input'
           title='Games: '
           name='tableGames'
-          controlFunc={this.handleTableGamesChange}
+          onChange={this.handleTableGamesChange}
           content={table.games.toString()}
           />
         <button type='button' className='remove-button' onClick={this.removeTable}>X</button>

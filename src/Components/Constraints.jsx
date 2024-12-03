@@ -41,7 +41,7 @@ class Constraints extends Component {
         inputType='number'
         title='Max number of plays with same person allowed: '
         name='maxPlayedWithAllowed'
-        controlFunc={(e) => handleNumberChange(e, 'maxPlayedWithAllowed')}
+        onChange={(e) => handleNumberChange(e, 'maxPlayedWithAllowed')}
         content={maxPlayedWithAllowed}
         max={totalRounds}
         min={1}
@@ -57,7 +57,7 @@ class Constraints extends Component {
         inputType='number'
         title='Max allowed average number of plays with same person: '
         name='maxAveragePlayedWithAllowed'
-        controlFunc={(e) => handleDecimalChange(e, 'maxAveragePlayedWithAllowed')}
+        onChange={(e) => handleDecimalChange(e, 'maxAveragePlayedWithAllowed')}
         content={maxAveragePlayedWithAllowed}
         max={totalRounds}
         min={1}
@@ -73,7 +73,7 @@ class Constraints extends Component {
         inputType='number'
         title='Minimum allowed number of unique tables visited: '
         name='minUniqueTablesAllowed'
-        controlFunc={(e) => handleNumberChange(e, 'minUniqueTablesAllowed')}
+        onChange={(e) => handleNumberChange(e, 'minUniqueTablesAllowed')}
         content={minUniqueTablesAllowed}
         max={totalRounds}
         min={1}
@@ -89,7 +89,7 @@ class Constraints extends Component {
         inputType='number'
         title='Minimum allowed average number of unique tables visited: '
         name='minAverageUniqueTablesAllowed'
-        controlFunc={(e) => handleDecimalChange(e, 'minAverageUniqueTablesAllowed')}
+        onChange={(e) => handleDecimalChange(e, 'minAverageUniqueTablesAllowed')}
         content={minAverageUniqueTablesAllowed}
         max={totalRounds}
         min={1}
@@ -105,7 +105,7 @@ class Constraints extends Component {
         inputType='number'
         title='Max times to run: '
         name='maxRuns'
-        controlFunc={(e) => handleNumberChange(e, 'maxRuns')}
+        onChange={(e) => handleNumberChange(e, 'maxRuns')}
         content={maxRuns}
         max={10000}
         min={1}
@@ -120,7 +120,7 @@ class Constraints extends Component {
         inputType='number'
         title='Number of times to run: '
         name='numTimesToRun'
-        controlFunc={(e) => handleNumberChange(e, 'numTimesToRun')}
+        onChange={(e) => handleNumberChange(e, 'numTimesToRun')}
         content={numTimesToRun}
         max={10000}
         min={1}
