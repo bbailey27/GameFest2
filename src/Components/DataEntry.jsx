@@ -7,16 +7,17 @@ import { runOrganizer } from '../worker';
 
 const defaultData = {
   firstRun: true,
-  options: ['changePeople', 'changeTables'],
-  totalPlayers: 20,
+  options: {
+    changePeople: true,
+    changeTables: true,
+  },
   totalRounds: 4,
-  totalKids: 0,
-  algorithmChoice: 'runRandomXTimes',
+  algorithmChoice: 'runRandomNTimes',
   numTimesToRun: 500,
   maxPlayedWithAllowed: 4,
-  maxAveragePlayedWithAllowed: 4,
+  maxAveragePlayedWithAllowed: '4.0',
   minUniqueTablesAllowed: 1,
-  minAverageUniqueTablesAllowed: 1,
+  minAverageUniqueTablesAllowed: '1.0',
   maxRuns: 50000,
   tables: [
       {
@@ -57,10 +58,8 @@ class DataEntry extends Component {
   constructor(props) {
     super(props);
     this.handleOptionsChange = this.handleOptionsChange.bind(this);
-    this.handleNumPlayersChange = this.handleNumPlayersChange.bind(this);
-    this.handleNumRoundsChange = this.handleNumRoundsChange.bind(this);
-    this.handleNumKidsChange = this.handleNumKidsChange.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
+    this.handleDecimalChange = this.handleDecimalChange.bind(this);
     this.handleAlgorithmChange = this.handleAlgorithmChange.bind(this);
     this.handleTablesChange = this.handleTablesChange.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
@@ -69,39 +68,30 @@ class DataEntry extends Component {
     this.state = JSON.parse(JSON.stringify(defaultData));
   }
 
-  //TODO handle other options
-  handleOptionsChange = (newOptions) => {
+  handleOptionsChange = (option, value) => {
     this.setState({
-      options: newOptions
+      options: {
+        ...this.state.options,
+        [option]: value
+      }
     });
   }
 
-  handleNumPlayersChange = (e) => {
+  handleNumberChange = (e, property, value = null) => {
+    const newValue = value !== null ? value : parseInt(e.target.value) || 0;
     this.setState({
-      totalPlayers: parseInt(e.target.value) ? parseInt(e.target.value) : 0
+      [property]: newValue
     });
   }
 
-  handleNumRoundsChange = (e) => {
+  handleDecimalChange = (e, property) => {
     this.setState({
-      totalRounds: parseInt(e.target.value) ? parseInt(e.target.value) : 0
-    });
-  }
-
-  handleNumKidsChange = (e) => {
-    this.setState({
-      totalKids: parseInt(e.target.value) ? parseInt(e.target.value) : 0
-    });
-  }
-//todo use this for other number values
-//todo variable defaults if this is an error?
-  handleNumberChange = (e, property) => {
-    this.setState({
-      [property]: parseInt(e.target.value) ? parseInt(e.target.value) : 0
+      [property]: e.target.value
     });
   }
 
   handleAlgorithmChange = (newAlgo) => {
+    console.log(newAlgo)
     this.setState({
       algorithmChoice: newAlgo
     });
@@ -121,44 +111,36 @@ class DataEntry extends Component {
   handleFormSubmit = (e) => {
   e.preventDefault();
 
+  const totalPlayers = this.state.tables.reduce((accumulator, currentItem) => {
+    return accumulator + currentItem.size
+  }, 0)
+
   const formPayload = {
-    changePeople: this.state.options.includes('changePeople'),
-    changeTables: this.state.options.includes('changeTables'),
-    kidsTable: this.state.options.includes('kidsTable'),
-    totalPlayers: this.state.totalPlayers,
+    options: this.state.options,
+    totalPlayers,
     totalRounds: this.state.totalRounds,
-    totalKids: this.state.options.includes('kidsTable') ? this.state.totalKids : 0,
     algorithmChoice: this.state.algorithmChoice,
     numTimesToRun: this.state.numTimesToRun,
     maxPlayedWithAllowed: this.state.maxPlayedWithAllowed,
-    maxAveragePlayedWithAllowed: this.state.maxAveragePlayedWithAllowed,
+    maxAveragePlayedWithAllowed: Number.parseFloat(this.state.maxAveragePlayedWithAllowed),
     minUniqueTablesAllowed: this.state.minUniqueTablesAllowed,
-    minAverageUniqueTablesAllowed: this.state.minAverageUniqueTablesAllowed,
+    minAverageUniqueTablesAllowed: Number.parseFloat(this.state.minAverageUniqueTablesAllowed),
     maxRuns: this.state.maxRuns,
     numTables: this.state.tables.length,
     tables: this.state.tables
   };
 
   console.log('Send this in a POST request:', formPayload);
-  const totalTableSpots = formPayload.tables.reduce(function(a, b) {
-        return a + b.size;
-    }, 0);
-  if (formPayload.totalPlayers !== totalTableSpots) {
-    throw new Error('Number of players must match number of table spots');
-  } else {
-    let result = runOrganizer(formPayload);
-    this.props.handleTablesReady(this.state.tables);
-    this.props.handleResultReady(result);
-    this.setState({firstRun: false});
-  }
+  let result = runOrganizer(formPayload);
+  this.props.handleTablesReady(this.state.tables);
+  this.props.handleResultReady(result);
+  this.setState({firstRun: false});
 }
 // TODO change to across the top to have more room for table data entry
   render() {
     const {
       options,
-      totalPlayers,
       totalRounds,
-      totalKids,
       algorithmChoice,
       numTimesToRun,
       maxPlayedWithAllowed,
@@ -171,19 +153,14 @@ class DataEntry extends Component {
       <div className='column'>
         <h2 className='heading'>Enter Your Data</h2>
         <div className='data-entry-section-with-subsections'>
-          {/* <Options
+          <Options
             className='data-entry-subsection'
             options={options}
-            onOptionsChange={this.handleOptionsChange} /> */}
+            handleOptionsChange={this.handleOptionsChange} />
           <Details
             className='data-entry-subsection'
-            isKidsTable={options.includes('kidsTable') ? true : false}
-            totalPlayers={totalPlayers}
             totalRounds={totalRounds}
-            totalKids={totalKids}
-            handleNumPlayersChange={this.handleNumPlayersChange}
-            handleNumRoundsChange={this.handleNumRoundsChange}
-            handleNumKidsChange={this.handleNumKidsChange} />
+            handleNumberChange={this.handleNumberChange} />
         </div>
         <Algorithms
           algorithmChoice={algorithmChoice}
@@ -196,7 +173,8 @@ class DataEntry extends Component {
           minAverageUniqueTablesAllowed={minAverageUniqueTablesAllowed}
           maxRuns={maxRuns}
           handleAlgorithmChange={this.handleAlgorithmChange}
-          handleNumberChange={this.handleNumberChange} />
+          handleNumberChange={this.handleNumberChange}
+          handleDecimalChange={this.handleDecimalChange} />
         <Tables
           className='data-entry-section'
           tables={tables}
@@ -208,9 +186,4 @@ class DataEntry extends Component {
   }
 }
 
-//TODO render tables without isKidsTable option for now
-/*TODO add Configuration and Constraints middle pane or bottom/top section:
-* Runtime options: run once, get the best of x number of times, or maybe run until the conditions are met (with a max/timeout returning the best so far?)
-* Constraints: conditions to define best (e.g. no playedWithCount over 3, minimize all playedWithCounts, no stayAtTableCount over 2)
-*/
 export default DataEntry;

@@ -1,31 +1,44 @@
-// import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-// import {Checkbox, CheckboxGroup} from 'react-checkbox-group'; //TODO remove react-checkbox-group
+import PropTypes from 'prop-types';
+import StatefulButton from './Subcomponents/StatefulButton';
+import { ReactComponent as ChangePeopleIcon } from '../Images/ChangePeopleIcon.svg';
+import { ReactComponent as ChangeTablesIcon } from '../Images/ChangeTablesIcon.svg';
 
-// class Options extends Component {
-//   static propTypes = {
-//     options: PropTypes.array.isRequired,
-//     onOptionsChange: PropTypes.func.isRequired
-//   }
 
-//   render() {
-//     return (
-//       <div className='options data-entry-subsection'>
-//         <h3>Options</h3>
-//         <CheckboxGroup
-//           className='checkbox-group'
-//           checkboxDepth={2}
-//           name="options"
-//           value={this.props.options}
-//           onChange={this.props.onOptionsChange}>
 
-//           <label><Checkbox value="kidsTable"/> Kids' Table</label>
-//           <label><Checkbox value="changeTables"/> Always Change Tables</label>
-//           <label><Checkbox value="changePeople"/> Play With Different People</label>
-//         </CheckboxGroup>
-//       </div>
-//     );
-//   }
+Options.propTypes = {
+    options: PropTypes.shape({
+        changePeople: PropTypes.bool,
+        changeTables: PropTypes.bool,
+    }).isRequired,
+    handleOptionsChange: PropTypes.func.isRequired
+  }
 
-// }
-// export default Options;
+function Options({
+    options,
+    handleOptionsChange
+}) {
+
+    return (
+      <div className='options data-entry-subsection'>
+        <h3>Options</h3>
+        <div className='options-group'>
+            <StatefulButton
+                type='composite'
+                text='See more people'
+                Icon={ChangePeopleIcon}
+                selected={options.changePeople}
+                onChange={() => handleOptionsChange('changePeople', !options.changePeople)}
+            />
+            <StatefulButton
+                type='composite'
+                text='Change tables'
+                Icon={ChangeTablesIcon}
+                selected={options.changeTables}
+                onChange={() => handleOptionsChange('changeTables', !options.changeTables)}
+            />
+        </div>
+      </div>
+    );
+}
+
+export default Options;
