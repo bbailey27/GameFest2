@@ -66,14 +66,14 @@ function runAlgorithm() {
   // Different Run Options
   let result;
   switch (algorithmChoice) {
-    case 'runRandomXTimes':
-      result = runRandomXTimes(algorithmDetails.numTimesToRun); // 500 is a good number
+    case 'runRandomNTimes':
+      result = runRandomNTimes(algorithmDetails.numTimesToRun); // 500 is a good number
       break;
     case 'runUntilConstraints':
-        result = runRandomXTimes(algorithmDetails.maxRuns);
+        result = runRandomNTimes(algorithmDetails.maxRuns);
         break;
     default:
-      result = runRandomXTimes(algorithmDetails.numTimesToRun); // 500 is a good number
+      result = runRandomNTimes(algorithmDetails.numTimesToRun); // 500 is a good number
       break;
   }
   console.log('RESULT', result);
@@ -92,7 +92,7 @@ function runRandomAndChooseBest(currentBestRun) {
   return compareResults({playerList: resultPlayerList, ...resultStats}, currentBestRun);
 }
 
-function runRandomXTimes(numRuns) {
+function runRandomNTimes(numRuns) {
   let bestRun = {
     playerList: [],
     maxPlayedWithCount: 100,

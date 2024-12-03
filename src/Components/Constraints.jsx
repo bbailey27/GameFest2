@@ -12,10 +12,12 @@ class Constraints extends Component {
     options: PropTypes.object.isRequired,
     numTimesToRun: PropTypes.number.isRequired,
     maxPlayedWithAllowed: PropTypes.number.isRequired,
-    maxAveragePlayedWithAllowed: PropTypes.number.isRequired,
+    maxAveragePlayedWithAllowed: PropTypes.string.isRequired,
     minUniqueTablesAllowed: PropTypes.number.isRequired,
+    minAverageUniqueTablesAllowed: PropTypes.string.isRequired,
     maxRuns: PropTypes.number.isRequired,
-    handleNumberChange: PropTypes.func.isRequired
+    handleNumberChange: PropTypes.func.isRequired,
+    handleDecimalChange: PropTypes.func.isRequired,
   }
 
   renderRunUntilConstraints() {
@@ -26,6 +28,7 @@ class Constraints extends Component {
         {changePeople && this.renderMaxPlayedWithAllowedInput()}
         {changePeople && this.renderMaxAveragePlayedWithAllowedInput()}
         {changeTables && this.renderMinUniqueTablesAllowedInput()}
+        {changeTables && this.renderMinAverageUniqueTablesAllowedInput()}
         {changeTables && this.renderMaxRunsInput()}
       </div>
     );
@@ -42,21 +45,23 @@ class Constraints extends Component {
         content={maxPlayedWithAllowed}
         max={totalRounds}
         min={1}
+        step={1}
         />
     );
   }
 
   renderMaxAveragePlayedWithAllowedInput() {
-    const {totalRounds, maxAveragePlayedWithAllowed, handleNumberChange} = this.props;
+    const {totalRounds, maxAveragePlayedWithAllowed, handleDecimalChange} = this.props;
     return (
       <SingleInput
         inputType='number'
         title='Max allowed average number of plays with same person: '
         name='maxAveragePlayedWithAllowed'
-        controlFunc={(e) => handleNumberChange(e, 'maxAveragePlayedWithAllowed')}
+        controlFunc={(e) => handleDecimalChange(e, 'maxAveragePlayedWithAllowed')}
         content={maxAveragePlayedWithAllowed}
         max={totalRounds}
         min={1}
+        step={0.01}
         />
     );
   }
@@ -72,6 +77,23 @@ class Constraints extends Component {
         content={minUniqueTablesAllowed}
         max={totalRounds}
         min={1}
+        step={1}
+        />
+    );
+  }
+
+  renderMinAverageUniqueTablesAllowedInput() {
+    const {totalRounds, minAverageUniqueTablesAllowed, handleDecimalChange} = this.props;
+    return (
+      <SingleInput
+        inputType='number'
+        title='Minimum allowed average number of unique tables visited: '
+        name='minAverageUniqueTablesAllowed'
+        controlFunc={(e) => handleDecimalChange(e, 'minAverageUniqueTablesAllowed')}
+        content={minAverageUniqueTablesAllowed}
+        max={totalRounds}
+        min={1}
+        step={0.01}
         />
     );
   }
@@ -91,7 +113,7 @@ class Constraints extends Component {
     );
   }
 
-  renderRunXTimesInput() {
+  renderRunNTimesInput() {
     const {numTimesToRun, handleNumberChange} = this.props;
     return (
       <SingleInput
@@ -110,7 +132,7 @@ class Constraints extends Component {
     return (
       <div className='constraints'>
         {this.props.algorithmChoice === 'runUntilConstraints' && this.renderRunUntilConstraints()}
-        {this.props.algorithmChoice === 'runRandomXTimes' && this.renderRunXTimesInput()}
+        {this.props.algorithmChoice === 'runRandomNTimes' && this.renderRunNTimesInput()}
       </div>
     );
   }

@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// Pure functional component defined as a const
+
 const SingleInput = (props) => (
       <div className="form-group">
         <label className="form-label">{props.title}</label>
         <input
-          className={`form-input ${props.classNames}`}
+          className={props.classNames ? `form-input ${props.classNames}`: 'form-input'}
           name={props.name}
           type={props.inputType}
           min={props.min}
           max={props.max}
+          step={props.step}
           value={props.content}
           onChange={props.controlFunc}
           placeholder={props.placeholder} />
@@ -26,6 +27,9 @@ SingleInput.propTypes = {
     PropTypes.number,
   ]).isRequired,
   placeholder: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
 };
 
 export default SingleInput;

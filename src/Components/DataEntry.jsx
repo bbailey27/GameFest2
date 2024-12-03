@@ -3,23 +3,22 @@ import Options from './Options';
 import Details from './Details';
 import Algorithms from './Algorithms';
 import Tables from './Tables';
-import StatefulButton from './Subcomponents/StatefulButton';
 import { runOrganizer } from '../worker';
 
 const defaultData = {
   firstRun: true,
   options: {
-    changePeople: false,
-    changeTables: false,
+    changePeople: true,
+    changeTables: true,
   },
   totalPlayers: 20,
   totalRounds: 4,
-  algorithmChoice: 'runRandomXTimes',
+  algorithmChoice: 'runRandomNTimes',
   numTimesToRun: 500,
   maxPlayedWithAllowed: 4,
-  maxAveragePlayedWithAllowed: 4,
+  maxAveragePlayedWithAllowed: '4.0',
   minUniqueTablesAllowed: 1,
-  minAverageUniqueTablesAllowed: 1,
+  minAverageUniqueTablesAllowed: '1.0',
   maxRuns: 50000,
   tables: [
       {
@@ -63,6 +62,7 @@ class DataEntry extends Component {
     this.handleNumPlayersChange = this.handleNumPlayersChange.bind(this);
     this.handleNumRoundsChange = this.handleNumRoundsChange.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
+    this.handleDecimalChange = this.handleDecimalChange.bind(this);
     this.handleAlgorithmChange = this.handleAlgorithmChange.bind(this);
     this.handleTablesChange = this.handleTablesChange.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
@@ -98,7 +98,14 @@ class DataEntry extends Component {
     });
   }
 
+  handleDecimalChange = (e, property) => {
+    this.setState({
+      [property]: e.target.value
+    });
+  }
+
   handleAlgorithmChange = (newAlgo) => {
+    console.log(newAlgo)
     this.setState({
       algorithmChoice: newAlgo
     });
@@ -125,9 +132,9 @@ class DataEntry extends Component {
     algorithmChoice: this.state.algorithmChoice,
     numTimesToRun: this.state.numTimesToRun,
     maxPlayedWithAllowed: this.state.maxPlayedWithAllowed,
-    maxAveragePlayedWithAllowed: this.state.maxAveragePlayedWithAllowed,
+    maxAveragePlayedWithAllowed: Number.parseFloat(this.state.maxAveragePlayedWithAllowed),
     minUniqueTablesAllowed: this.state.minUniqueTablesAllowed,
-    minAverageUniqueTablesAllowed: this.state.minAverageUniqueTablesAllowed,
+    minAverageUniqueTablesAllowed: Number.parseFloat(this.state.minAverageUniqueTablesAllowed),
     maxRuns: this.state.maxRuns,
     numTables: this.state.tables.length,
     tables: this.state.tables
@@ -186,7 +193,8 @@ class DataEntry extends Component {
           minAverageUniqueTablesAllowed={minAverageUniqueTablesAllowed}
           maxRuns={maxRuns}
           handleAlgorithmChange={this.handleAlgorithmChange}
-          handleNumberChange={this.handleNumberChange} />
+          handleNumberChange={this.handleNumberChange}
+          handleDecimalChange={this.handleDecimalChange} />
         <Tables
           className='data-entry-section'
           tables={tables}

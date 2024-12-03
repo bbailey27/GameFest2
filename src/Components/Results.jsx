@@ -59,10 +59,10 @@ class Results extends Component {
     return (
       <div className='column-right'>
         <h2 className='heading'>Results</h2>
-        <p>Max of Everyone's Max Times Played With Someone: {result.maxPlayedWithCount}</p>
-        <p>Average of Everyone's Max Times Played With Someone: {Math.round(result.averageMaxPlayedWithCount * 100) / 100}</p>
-        <p>Minimum Number of Unique Tables Visited: {result.minUniqueTablesVisited}</p>
-        <p>Average Number of Unique Tables Visited: {Math.round(result.averageUniqueTablesVisited * 100) / 100}</p>
+        <p>Max times seeing the same person: {result.maxPlayedWithCount}</p>
+        <p>Average of everyone's max times seeing one person: {Math.round(result.averageMaxPlayedWithCount * 100) / 100}</p>
+        <p>Minimum unique tables visited: {result.minUniqueTablesVisited}</p>
+        <p>Average unique tables visited: {Math.round(result.averageUniqueTablesVisited * 100) / 100}</p>
         <button onClick={() => this.download()} className='download-button'>Download This Result</button>
         <ol>
           {result.playerList.length > 0 &&

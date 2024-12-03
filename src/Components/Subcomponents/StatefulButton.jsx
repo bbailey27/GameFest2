@@ -8,9 +8,6 @@ StatefulButton.propTypes = {
   icon: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  // TODO pull a simple selected/unselected toggle handler out into a util for reuse
-  // but I don't think I should just put that logic here since I'll want the parent to be aware of changes? Could add context instead
-  // TODO decide what the selected status does in terms of styling - fill in the background?
 };
 
 function StatefulButton({
