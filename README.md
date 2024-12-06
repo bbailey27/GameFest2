@@ -1,3 +1,17 @@
+# Live Site
+
+https://bbailey27.github.io/GameFest2/
+
+# Purpose
+
+The original purpose of this site is to facilitate random table assignments for a multi-round game tournament. The tool is an algorithm for assigning people to tables of varying size, and ensuring that various goals are met when rotating people between tables. Using the controls, you can optimize to avoid participants playing with the same people too often or staying at the same table for multiple rounds. You can choose to generate a certain number of random assignments and keep the best one for your chosen goals (e.g. moving tables, seeing different people). Or you can choose to run it until specific constraints are met (e.g. the maximum number of times 2 players can be assigned to the same table). Please note that your specific setup will affect the level of optimization possible (e.g. if you have larger tables, it's much harder for everyone to avoid playing with someone twice).
+
+The output is a Text file. Each person's entry includes their assigned tables for each round as well as the assigned game (if entered).
+
+---
+
+# Create React App Docs
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

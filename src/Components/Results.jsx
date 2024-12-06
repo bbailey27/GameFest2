@@ -47,7 +47,7 @@ class Results extends Component {
 
   renderTableRow(playerId, tableIndex, tableId) {
     const tableDetails = this.props.tables.find(t => t.id === tableId);
-    return (<li key={playerId + '-' + tableIndex} className='result-list-item'>{tableDetails.name} ({tableDetails.size})</li>);
+    return (<li key={playerId + '-' + tableIndex} className='result-list-table'>{tableDetails.name} ({tableDetails.size})</li>);
   }
 
   renderPlayedWith(playedWithList) {
@@ -57,14 +57,14 @@ class Results extends Component {
   render() {
     const {result} = this.props;
     return (
-      <div className='column-right'>
+      <div className='results'>
         <h2 className='heading'>Results</h2>
         <p>Max times seeing the same person: {result.maxPlayedWithCount}</p>
         <p>Average of everyone's max times seeing one person: {Math.round(result.averageMaxPlayedWithCount * 100) / 100}</p>
         <p>Minimum unique tables visited: {result.minUniqueTablesVisited}</p>
         <p>Average unique tables visited: {Math.round(result.averageUniqueTablesVisited * 100) / 100}</p>
         <button onClick={() => this.download()} className='download-button'>Download This Result</button>
-        <ol>
+        <ol className='result-list'>
           {result.playerList.length > 0 &&
             result.playerList.sort((a,b) => a.id-b.id).map(player => this.renderPlayerRow(player))}
         </ol>

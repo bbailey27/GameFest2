@@ -36,16 +36,12 @@ class App extends Component {
       <div className='App'>
         <h1>GameFest</h1>
         <div className='App-body'>
-          <div className='left-pane'>
-            <DataEntry
-              handleResultReady={this.handleResultReady}
-              handleTablesReady={this.handleTablesReady}/>
-          </div>
-          <div className='right-pane'>
-            <Results
-              result={this.state.result}
-              tables={this.state.tables}/>
-          </div>
+          <DataEntry
+            handleResultReady={this.handleResultReady}
+            handleTablesReady={this.handleTablesReady}/>
+          <Results
+            result={this.state.result}
+            tables={this.state.tables}/>
         </div>
       </div>
     );

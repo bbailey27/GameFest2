@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import Constraints from './Constraints';
 import StatefulButton from './Subcomponents/StatefulButton';
 
@@ -21,7 +20,7 @@ class Algorithms extends Component {
 
   render() {
     return (
-      <div className='data-entry-section'>
+      <div className='algorithms data-entry-subsection'>
         <h3>Algorithm Options</h3>
         <div className='options-group'>
           <StatefulButton

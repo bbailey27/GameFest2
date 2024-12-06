@@ -16,13 +16,13 @@ function StatefulButton({
   text,
   Icon,
   name,
-  onChange
+  onChange,
 }) {
 
   const className = selected ? 'stateful-button stateful-button--selected' : 'stateful-button  stateful-button--unselected'
 
   return (
-    <div className={className} onClick={onChange}>
+    <div className={className} onClick={onChange} id={name}>
       {(type === 'icon' || type === 'composite') && 
         <Icon />
       }

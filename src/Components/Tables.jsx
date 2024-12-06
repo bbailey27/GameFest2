@@ -117,7 +117,7 @@ class Tables extends Component {
 
   render() {
     return (
-      <div className='tables data-entry-section'>
+      <div className='tables data-entry-subsection'>
         <h3>Tables</h3>
         <p style={{padding:'0 1rem', marginTop: 0}}>(Optional) Please enter a comma-separated list of games for each round</p>
         {this.renderTableRows()}
