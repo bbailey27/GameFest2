@@ -82,7 +82,6 @@ class DataEntry extends Component {
     this.setState({
       [property]: newValue
     });
-    console.log(newValue, property)
   }
 
   handleDecimalChange = (e, property) => {
@@ -92,7 +91,6 @@ class DataEntry extends Component {
   }
 
   handleAlgorithmChange = (newAlgo) => {
-    console.log(newAlgo)
     this.setState({
       algorithmChoice: newAlgo
     });

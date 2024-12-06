@@ -12,10 +12,9 @@ const Rounds = ({
   const defaultCustomRoundCount = roundOptions[roundOptions.length-1] + 1;
 
   function handleRoundSelect(e, custom = false, value) {
-    console.log('params', e, value, custom)
     const inputValue = e.target.value;
     const newValue = inputValue || value || defaultCustomRoundCount;
-    console.log(inputValue, newValue)
+
     setIsCustomRoundOption(custom);
     handleNumberChange(e, 'totalRounds', parseInt(newValue));
   }
@@ -62,9 +61,3 @@ Rounds.propTypes = {
 }
 
 export default Rounds;
-
-// on click of custom button - toggle custom round size (this means it possible to have no size selected)
-// TODO add error for no round count
-// When a number is clicked, update the number in parent state and make sure custom is set to false
-// when the input is updated, mark custom as selected, deselect other numbers, and update the number in parent state
-// currently I have the text box hidden until needed. Always there would be valid too. see about final layout
