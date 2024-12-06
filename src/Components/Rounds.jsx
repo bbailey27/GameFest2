@@ -20,9 +20,9 @@ const Rounds = ({
   }
 
   return (
-    <div className='details data-entry-subsection'>
+    <div className='rounds data-entry-subsection'>
       <h3>How Many Rounds?</h3>
-      <div className='round-options-buttons'>
+      <div className='options-group'>
         {roundOptions.map((roundOption) => (
           <StatefulButton 
             type={'text'}

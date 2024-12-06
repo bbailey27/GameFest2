@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Options from './Options';
-import Details from './Rounds';
+import Rounds from './Rounds';
 import Algorithms from './Algorithms';
 import Tables from './Tables';
 import { runOrganizer } from '../worker';
@@ -149,37 +149,41 @@ class DataEntry extends Component {
       maxRuns,
       tables} = this.state;
     return (
-      <div className='column'>
+      <div className='data-entry-container'>
         <h2 className='heading'>Enter Your Data</h2>
         <div className='data-entry-section-with-subsections'>
-          <Options
-            className='data-entry-subsection'
-            options={options}
-            handleOptionsChange={this.handleOptionsChange} />
-          <Details
+          <Rounds
             className='data-entry-subsection'
             totalRounds={totalRounds}
             handleNumberChange={this.handleNumberChange} />
-        </div>
-        <Algorithms
-          algorithmChoice={algorithmChoice}
-          totalRounds={totalRounds}
-          options={options}
-          numTimesToRun={numTimesToRun}
-          maxPlayedWithAllowed={maxPlayedWithAllowed}
-          maxAveragePlayedWithAllowed={maxAveragePlayedWithAllowed}
-          minUniqueTablesAllowed={minUniqueTablesAllowed}
-          minAverageUniqueTablesAllowed={minAverageUniqueTablesAllowed}
-          maxRuns={maxRuns}
-          handleAlgorithmChange={this.handleAlgorithmChange}
-          handleNumberChange={this.handleNumberChange}
-          handleDecimalChange={this.handleDecimalChange} />
-        <Tables
+          <Tables
           className='data-entry-section'
           tables={tables}
           handleTablesChange={this.handleTablesChange}/>
-        <button type='submit' className='button run-button' onClick={this.handleFormSubmit}>{this.state.firstRun ? 'Run': 'Run Again'}</button>
-        <button className='button' onClick={this.handleClearForm}>Clear Form</button>
+        </div>
+        <div className='data-entry-section-with-subsections'>
+          <Options
+              className='data-entry-subsection'
+              options={options}
+              handleOptionsChange={this.handleOptionsChange} />
+          <Algorithms
+            algorithmChoice={algorithmChoice}
+            totalRounds={totalRounds}
+            options={options}
+            numTimesToRun={numTimesToRun}
+            maxPlayedWithAllowed={maxPlayedWithAllowed}
+            maxAveragePlayedWithAllowed={maxAveragePlayedWithAllowed}
+            minUniqueTablesAllowed={minUniqueTablesAllowed}
+            minAverageUniqueTablesAllowed={minAverageUniqueTablesAllowed}
+            maxRuns={maxRuns}
+            handleAlgorithmChange={this.handleAlgorithmChange}
+            handleNumberChange={this.handleNumberChange}
+            handleDecimalChange={this.handleDecimalChange} />
+          </div>
+        <div className='submit-button-row'>
+          <button type='submit' className='button run-button' onClick={this.handleFormSubmit}>{this.state.firstRun ? 'Run': 'Run Again'}</button>
+          <button className='button' onClick={this.handleClearForm}>Reset</button>
+        </div>      
       </div>
     );
   }
