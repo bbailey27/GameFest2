@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Options from './Options';
-import Details from './Details';
+import Details from './Rounds';
 import Algorithms from './Algorithms';
 import Tables from './Tables';
 import { runOrganizer } from '../worker';
@@ -82,6 +82,7 @@ class DataEntry extends Component {
     this.setState({
       [property]: newValue
     });
+    console.log(newValue, property)
   }
 
   handleDecimalChange = (e, property) => {

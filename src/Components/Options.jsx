@@ -20,7 +20,7 @@ function Options({
 
     return (
       <div className='options data-entry-subsection'>
-        <h3>Options</h3>
+        <h3>Preferences</h3>
         <div className='options-group'>
             <StatefulButton
                 type='composite'
