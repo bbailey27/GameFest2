@@ -1,13 +1,15 @@
 {
-  "main.css": "/GameFest2/static/css/main.b33cdad8.chunk.css",
-  "main.js": "/GameFest2/static/js/main.15f7f737.chunk.js",
-  "main.js.map": "/GameFest2/static/js/main.15f7f737.chunk.js.map",
-  "static/js/1.1b6cf2df.chunk.js": "/GameFest2/static/js/1.1b6cf2df.chunk.js",
-  "static/js/1.1b6cf2df.chunk.js.map": "/GameFest2/static/js/1.1b6cf2df.chunk.js.map",
-  "runtime~main.js": "/GameFest2/static/js/runtime~main.32ae33d0.js",
-  "runtime~main.js.map": "/GameFest2/static/js/runtime~main.32ae33d0.js.map",
-  "static/css/main.b33cdad8.chunk.css.map": "/GameFest2/static/css/main.b33cdad8.chunk.css.map",
-  "index.html": "/GameFest2/index.html",
-  "precache-manifest.566430eb8bb516262a7cc3b3cf2d53a3.js": "/GameFest2/precache-manifest.566430eb8bb516262a7cc3b3cf2d53a3.js",
-  "service-worker.js": "/GameFest2/service-worker.js"
+  "files": {
+    "main.css": "/GameFest2/static/css/main.db543708.css",
+    "main.js": "/GameFest2/static/js/main.a298bf5f.js",
+    "static/media/ChangeTablesIcon.svg": "/GameFest2/static/media/ChangeTablesIcon.c4e995b71fd2ebbfe59c7a013c311010.svg",
+    "static/media/ChangePeopleIcon.svg": "/GameFest2/static/media/ChangePeopleIcon.27d61083e134bcea8cdd10b2e25a005e.svg",
+    "index.html": "/GameFest2/index.html",
+    "main.db543708.css.map": "/GameFest2/static/css/main.db543708.css.map",
+    "main.a298bf5f.js.map": "/GameFest2/static/js/main.a298bf5f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.db543708.css",
+    "static/js/main.a298bf5f.js"
+  ]
 }
